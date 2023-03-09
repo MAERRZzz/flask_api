@@ -5,13 +5,17 @@ import rsa
 
 # Добавление пользователей в БД
 def add():
-    if not request.json or not ('email' in request.json)\
-            or not ('display_name' in request.json) \
-            or not ('google_id' in request.json):
+    if not (json := request.json) \
+            or 'email' not in json \
+            or 'display_name' not in json \
+            or 'google_id' not in json \
+            or 'photo_url' not in json:
         abort(400)
-    email = request.json['email']
-    display_name = request.json['display_name']
-    google_id = request.json['google_id']
+
+    email = json['email']
+    display_name = json['display_name']
+    google_id = json['google_id']
+    photo_url = json['photo_url']
 
     user = session.query(User).filter_by(email=email).first()
 
@@ -31,4 +35,5 @@ def add():
     return jsonify({'email': user.email,
                     'display_name': user.display_name,
                     'google_id': user.google_id,
-                    'public_key': user.public_key})
+                    'public_key': user.public_key,
+                    'photo_url': photo_url})
