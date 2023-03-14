@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, VARCHAR, Text, ForeignKey, DateTime, SmallInteger, Boolean
+from sqlalchemy import Column, Integer, VARCHAR, Text, ForeignKey, DateTime, SmallInteger, Boolean, ARRAY
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.dialects.postgresql import UUID, JSON
 from sqlalchemy.orm import sessionmaker
@@ -46,10 +46,11 @@ class Event(base):
     __tablename__ = 'event'
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    location = Column(VARCHAR, nullable=False)
-    description = Column(VARCHAR, nullable=False)
-    start = Column(Text, nullable=False)
-    end = Column(Text, nullable=False)
+    location = Column(VARCHAR)
+    description = Column(VARCHAR)
+    start = Column(Text)
+    end = Column(Text)
+    recurrence = Column(ARRAY(Text))
 
     summaryId = Column(UUID(as_uuid=True), ForeignKey("class.id"))
 
@@ -61,7 +62,7 @@ class Class(base):
     __tablename__ = 'class'
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    name = Column(VARCHAR, nullable=False)
+    name = Column(VARCHAR)
 
     def __repr__(self):
         return f'<Lesson "{self.name}">'

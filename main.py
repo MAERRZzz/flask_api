@@ -3,7 +3,7 @@ from forms import home, user, qr, errors, security, test
 import locale
 
 app = Flask(__name__, template_folder='templates')
-locale.setlocale(locale.LC_ALL, '')
+# locale.setlocale(locale.LC_ALL, '')
 app.config['JSON_AS_ASCII'] = False
 
 # TEST
