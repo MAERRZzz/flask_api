@@ -48,11 +48,11 @@ class Student(base):
     __tablename__ = 'student'
 
     id = Column(Integer, primary_key=True)
-    email = Column(Text, nullable=False)
-    display_name = Column(Text, nullable=False)
-    google_id = Column(Text, nullable=False)
-    public_key = Column(Text, nullable=False)
-    private_key = Column(Text, nullable=False)
+    email = Column(Text)
+    display_name = Column(Text)
+    google_id = Column(Text)
+    public_key = Column(Text)
+    private_key = Column(Text)
 
     def __init__(self, email, display_name, google_id, public_key, private_key):
         self.email = email
@@ -69,10 +69,11 @@ class Event(base):
     __tablename__ = 'event'
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    location = Column(VARCHAR, nullable=False)
-    description = Column(VARCHAR, nullable=False)
-    start = Column(Text, nullable=False)
-    end = Column(Text, nullable=False)
+    location = Column(VARCHAR)
+    description = Column(VARCHAR)
+    start = Column(Text)
+    end = Column(Text)
+    recurrence = Column(ARRAY(Text))
 
     summaryId = Column(UUID(as_uuid=True), ForeignKey("class.id"))
 
